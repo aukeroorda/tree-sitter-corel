@@ -2,7 +2,7 @@
   "name": "tree-sitter-corel",
   "version": "0.0.1",
   "description": "Corel grammar for tree-sitter",
-  "main": "index.js",
+  "main": "bindings/node",
   "scripts": {
     "test": "tree-sitter test"
   },
