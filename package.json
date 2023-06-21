@@ -1,0 +1,24 @@
+{
+  "name": "tree-sitter-corel",
+  "version": "0.0.1",
+  "description": "Corel grammar for tree-sitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aukeroorda/tree-sitter-corel.git"
+  },
+  "keywords": [
+    "corel",
+    "grammar",
+    "tree-sitter"
+  ],
+  "author": "Auke Roorda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aukeroorda/tree-sitter-corel/issues"
+  },
+  "homepage": "https://github.com/aukeroorda/tree-sitter-corel#readme"
+}
