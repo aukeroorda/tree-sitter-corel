@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/aukeroorda/tree-sitter-corel/issues"
   },
-  "homepage": "https://github.com/aukeroorda/tree-sitter-corel#readme"
+  "homepage": "https://github.com/aukeroorda/tree-sitter-corel#readme",
+  "dependencies": {
+    "nan": "^2.17.0"
+  }
 }
