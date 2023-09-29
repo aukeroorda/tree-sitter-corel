@@ -1,5 +1,5 @@
 module.exports = grammar({
-  name: 'YOUR_LANGUAGE_NAME',
+  name: 'corel',
 
   rules: {
     // TODO: add the actual grammar rules
