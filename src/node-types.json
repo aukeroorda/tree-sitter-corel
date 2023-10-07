@@ -1,11 +1,83 @@
 [
   {
+    "type": "ingredient",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ingredients_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ingredients_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ingredients_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ingredient",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "header",
+          "named": true
+        },
+        {
+          "type": "ingredients_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "word",
     "named": true,
     "fields": {}
   },
   {
-    "type": "hello",
+    "type": "-",
     "named": false
+  },
+  {
+    "type": "aha",
+    "named": false
+  },
+  {
+    "type": "header",
+    "named": true
   }
 ]

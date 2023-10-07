@@ -2,8 +2,99 @@
   "name": "corel",
   "rules": {
     "source_file": {
-      "type": "STRING",
-      "value": "hello"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "header"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "ingredients_block"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
+    },
+    "header": {
+      "type": "PATTERN",
+      "value": "#.*"
+    },
+    "ingredients_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "##.*"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ingredients_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "ingredients_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "ingredient"
+      }
+    },
+    "ingredient": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        }
+      ]
+    },
+    "word": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "aha"
+        }
+      ]
+    },
+    "_everything_but_newline": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     }
   },
   "extras": [
