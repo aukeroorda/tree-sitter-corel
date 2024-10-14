@@ -1,0 +1,111 @@
+====
+sole_fraction
+====
+
+~TEST_EXACT_VALUE
+1/3
+~TEST_EXACT_VALUE
+
+---
+
+(source_file
+	(exact_value
+		(fraction 
+			(natural_number)
+			(natural_number))))
+
+====
+sole_fraction multidigit
+====
+
+~TEST_EXACT_VALUE
+12/3
+~TEST_EXACT_VALUE
+
+---
+
+(source_file
+	(exact_value
+		(fraction 
+			(natural_number)
+			(natural_number))))
+
+====
+mixed
+====
+
+~TEST_EXACT_VALUE
+12 21/13
+~TEST_EXACT_VALUE
+
+---
+
+(source_file
+	(exact_value
+		(natural_number)
+		(fraction 
+			(natural_number)
+			(natural_number))))
+
+====
+sole_integral
+====
+
+~TEST_EXACT_VALUE
+12
+~TEST_EXACT_VALUE
+
+---
+
+(source_file
+	(exact_value
+		(natural_number)))
+
+
+====
+precedence over natural number
+====
+
+~
+12
+~
+
+---
+
+(source_file
+	(exact_value
+		(natural_number)))
+
+====
+precedence over mixed
+====
+
+~
+12 1/2
+~
+
+---
+
+(source_file
+	(exact_value
+		(natural_number)
+		(fraction
+			(natural_number)
+			(natural_number))))
+
+====
+precedence over fraction
+====
+
+~
+1/2
+~
+
+---
+
+(source_file
+	(exact_value
+		(fraction
+			(natural_number)
+			(natural_number))))
+

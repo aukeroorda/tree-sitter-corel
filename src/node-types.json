@@ -1,83 +1,150 @@
 [
   {
-    "type": "ingredient",
+    "type": "exact_value",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
+    "fields": {
+      "mixed": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "fraction",
+            "named": true
+          },
+          {
+            "type": "natural_number",
+            "named": true
+          }
+        ]
+      },
+      "sole_fraction": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "fraction",
+            "named": true
+          }
+        ]
+      },
+      "sole_integral": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "natural_number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "ingredients_block",
+    "type": "fraction",
     "named": true,
+    "fields": {
+      "denominator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "natural_number",
+            "named": true
+          }
+        ]
+      },
+      "numerator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "natural_number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "range",
+    "named": true,
+    "fields": {
+      "lower": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exact_value",
+            "named": true
+          }
+        ]
+      },
+      "upper": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exact_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "ingredients_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ingredients_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "ingredient",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "source_file",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "header",
+          "type": "exact_value",
           "named": true
         },
         {
-          "type": "ingredients_block",
+          "type": "fraction",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "range",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "word",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "-",
     "named": false
   },
   {
-    "type": "aha",
+    "type": "/",
     "named": false
   },
   {
-    "type": "header",
+    "type": "TEST_EXACT_VALUE",
+    "named": false
+  },
+  {
+    "type": "TEST_FRACTION",
+    "named": false
+  },
+  {
+    "type": "TEST_NATURAL_NUMBER",
+    "named": false
+  },
+  {
+    "type": "TEST_RANGE",
+    "named": false
+  },
+  {
+    "type": "natural_number",
     "named": true
   }
 ]

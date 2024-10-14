@@ -1,0 +1,26 @@
+====
+2
+====
+
+~TEST_NATURAL_NUMBER
+2
+~TEST_NATURAL_NUMBER
+
+---
+
+(source_file
+	(natural_number))
+
+====
+10
+====
+
+~TEST_NATURAL_NUMBER
+10
+~TEST_NATURAL_NUMBER
+
+---
+
+(source_file
+	(natural_number))
+

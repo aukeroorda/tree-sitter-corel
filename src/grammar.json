@@ -1,30 +1,106 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "corel",
   "rules": {
     "source_file": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "header"
-            },
-            {
-              "type": "CHOICE",
+              "type": "SEQ",
               "members": [
                 {
-                  "type": "SEQ",
+                  "type": "PATTERN",
+                  "value": "~"
+                },
+                {
+                  "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "ingredients_block"
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": ".*"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "exact_value"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "fraction"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "natural_number"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "TEST_RANGE"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "range"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "TEST_EXACT_VALUE"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "exact_value"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "TEST_NATURAL_NUMBER"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "natural_number"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "TEST_FRACTION"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "fraction"
+                        }
+                      ]
                     }
                   ]
                 },
                 {
-                  "type": "BLANK"
+                  "type": "PATTERN",
+                  "value": "~.*"
                 }
               ]
             }
@@ -35,66 +111,122 @@
         }
       ]
     },
-    "header": {
-      "type": "PATTERN",
-      "value": "#.*"
-    },
-    "ingredients_block": {
-      "type": "SEQ",
+    "number_or_range": {
+      "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "##.*"
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exact_value"
+          }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "ingredients_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "FIELD",
+          "name": "range",
+          "content": {
+            "type": "SYMBOL",
+            "name": "range"
+          }
         }
       ]
     },
-    "ingredients_list": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "ingredient"
-      }
-    },
-    "ingredient": {
+    "range": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "FIELD",
+          "name": "lower",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exact_value"
+          }
+        },
         {
           "type": "STRING",
           "value": "-"
         },
         {
-          "type": "REPEAT1",
+          "type": "FIELD",
+          "name": "upper",
           "content": {
             "type": "SYMBOL",
-            "name": "word"
+            "name": "exact_value"
           }
         }
       ]
     },
-    "word": {
-      "type": "CHOICE",
+    "exact_value": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "sole_integral",
+            "content": {
+              "type": "SYMBOL",
+              "name": "natural_number"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "mixed",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "natural_number"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "fraction"
+                }
+              ]
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "sole_fraction",
+            "content": {
+              "type": "SYMBOL",
+              "name": "fraction"
+            }
+          }
+        ]
+      }
+    },
+    "fraction": {
+      "type": "SEQ",
       "members": [
         {
+          "type": "FIELD",
+          "name": "numerator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "natural_number"
+          }
+        },
+        {
           "type": "STRING",
-          "value": "aha"
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "denominator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "natural_number"
+          }
         }
       ]
     },
-    "_everything_but_newline": {
+    "natural_number": {
       "type": "PATTERN",
-      "value": "[^\\n]+"
+      "value": "[1-9](\\d)?"
     }
   },
   "extras": [
@@ -109,4 +241,3 @@
   "inline": [],
   "supertypes": []
 }
-

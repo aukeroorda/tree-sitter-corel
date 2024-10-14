@@ -2,51 +2,79 @@ module.exports = grammar({
   name: "corel",
 
   rules: {
-    // TODO: add the actual grammar rules
-    // TODO Note on how to implement a unit-testing approach:
-    // <@204173466713194496> a workaround I’ve done to enable more unit-testing approach is to create a special special token with distinct opening and closing markers that are unlikely/syntactically invalid in the context. Open the block with `-+=%tree-sitter-my-language-testing-start%=+-`and a similar ending pattern, use lines or whatever else for delimiters, then reference the leaf nodes I want to unit test. An interim solution could be adding a way to mark such nodes as being tests-only and automatically exclude it from a “release” parser? Or have a specific corpus test format for leaves outside their context? Not sure but I definitely empathize with wanting more support for a unit testing approach.
-
-    // _expression_block: $ => seq(
-    //   "tree-sitter-expression-block-start",
-    //   $._newline,
-    //   rep(
-    //     optional($._expression),
-    //     $._newline,
-    //   ),
-    //   "tree-sitter-expression-block-end",
-    // ),
-    // ^^^^ Something like this: at the top-level add a choice between:
-    // the_normal_language | unit_test_1 | unit_test_2 etc., or a slightly more advanced grammar for unit tests can work as well. But this keeps the tests close to the root-node and therefore more modular
-    // more context in https://discord.com/channels/1063097320771698699/1063097321648312354/1207450495220850720
-
-    // source_file: $ => 'hello'
     source_file: ($) =>
       optional(
-        seq(
-          $.header,
-          optional(
-            seq(
-              $.ingredients_block,
-              // optional(
-              //   $.instructions
-              // )
+        choice(
+          // TODO This is where the natural entry point of the language is, but
+          // TODO this is made a 'choice' to be able to debug non-root nodes as well
+
+          // Test cases
+          seq(
+            /~/, // Test case
+            choice(
+              seq(
+                /.*/,
+                choice(
+                  $.exact_value,
+                  $.fraction,
+                  $.natural_number,
+                )
+              ),
+              seq(
+                "TEST_RANGE",
+                $.range,
+              ),
+              seq(
+                "TEST_EXACT_VALUE",
+                $.exact_value,
+              ),
+              seq(
+                "TEST_NATURAL_NUMBER",
+                $.natural_number,
+              ),
+              seq(
+                "TEST_FRACTION",
+                $.fraction,
+              ),
             ),
-          ),
+            /~.*/ // end of test case
+          )
         ),
       ),
 
-    // header: $ => seq('#', $._everything_but_newline),
-    header: ($) => /#.*/,
-    ingredients_block: ($) => seq(/##.*/, optional($.ingredients_list)),
+    // NumberOrRange is either a single ExactValue, or a range: ExactValue "-" ExactValue
+    number_or_range: ($) => choice(
+      field("number", $.exact_value),
+      field("range", $.range)
+    ),
 
-    ingredients_list: ($) => repeat1($.ingredient),
-    ingredient: ($) => seq("-", repeat1($.word)),
+    range: ($) => seq(
+      field("lower", $.exact_value),
+      "-",
+      field("upper", $.exact_value)
+    ),
 
-    word: ($) =>
-      choice(
-        "aha",
-      ),
+    // ExactValue is either a single natural number, fraction, or a natural number followed by a fraction
+    // - "4"
+    // - "1/3"
+    // - "2 1/2"
+    exact_value: ($) => prec.left(choice(
+      field("sole_integral", $.natural_number),
+      field("mixed", seq($.natural_number, $.fraction)),
+      field("sole_fraction", $.fraction)
+    )),
 
-    _everything_but_newline: ($) => /[^\n]+/,
+    // Fractions of the form "1/3", no whitespace allowed
+    fraction: ($) => seq(
+      field('numerator', $.natural_number),
+      "/",
+      field('denominator', $.natural_number)), //TODO Make these immediate? NOTE: Only when this improves parsing, e.g. when it prevents certain parsing problems
+
+    // Natural numbers, so no decimals or negatives
+    natural_number: ($) => /[1-9](\d)?/,
   },
+
+  // conflicts: ($) => [[
+  //   $.exact_value, $.fraction, $.natural_number
+  // ]]
 });

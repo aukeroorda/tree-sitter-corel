@@ -1,0 +1,59 @@
+====
+1/3
+====
+
+~TEST_FRACTION
+1/3
+~TEST_FRACTION
+
+---
+
+(source_file
+	(fraction 
+		(natural_number)
+		(natural_number)))
+
+====
+whitespace
+====
+
+~TEST_FRACTION
+1 / 3
+~TEST_FRACTION
+
+---
+
+(source_file
+	(fraction 
+		(natural_number)
+		(natural_number)))
+
+====
+multidigit
+====
+
+~TEST_FRACTION
+21/13
+~TEST_FRACTION
+
+---
+
+(source_file
+	(fraction 
+		(natural_number)
+		(natural_number)))
+
+====
+multidigit whitespace
+====
+
+~TEST_FRACTION
+21 / 13
+~TEST_FRACTION
+
+---
+
+(source_file
+	(fraction 
+		(natural_number)
+		(natural_number)))

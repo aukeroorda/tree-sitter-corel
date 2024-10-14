@@ -1,0 +1,158 @@
+====
+integral range
+====
+
+~TEST_RANGE
+1-3
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+			(natural_number))
+		(exact_value 
+			(natural_number))))
+====
+integral range whitespace
+====
+
+~TEST_RANGE
+1 - 3
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+			(natural_number))
+		(exact_value 
+			(natural_number))))
+
+====
+fraction range whitespace
+====
+
+~TEST_RANGE
+1/2 - 3
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+			(fraction
+				(natural_number)
+				(natural_number)))
+		(exact_value 
+			(natural_number))))
+
+====
+fraction range from and to whitespace
+====
+
+~TEST_RANGE
+1/2 - 3/4
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+			(fraction
+				(natural_number)
+				(natural_number)))
+		(exact_value 
+			(fraction
+				(natural_number)
+				(natural_number)))))
+
+====
+integral range from mixed
+====
+
+~TEST_RANGE
+1 1/2-3
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))
+		(exact_value 
+			(natural_number))))
+====
+integral range from and to mixed
+====
+
+~TEST_RANGE
+1 1/2-3 4/5
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))))
+====
+integral range from and to mixed multidigit
+====
+
+~TEST_RANGE
+11 11/22-33 44/55
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))))
+====
+integral range from and to mixed multidigit whitespace
+====
+
+~TEST_RANGE
+11 11 / 22 - 33 44 / 55
+~TEST_RANGE
+
+---
+
+(source_file
+	(range
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))
+		(exact_value 
+          (natural_number)
+          (fraction
+            (natural_number)
+            (natural_number)))))
