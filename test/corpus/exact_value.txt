@@ -36,10 +36,11 @@ mixed
 
 (source_file
 	(exact_value
-		(natural_number)
-		(fraction 
+		(mixed
 			(natural_number)
-			(natural_number))))
+			(fraction 
+				(natural_number)
+				(natural_number)))))
 
 ====
 sole_integral
@@ -76,10 +77,11 @@ precedence over mixed
 
 (source_file
 	(exact_value
-		(natural_number)
-		(fraction
+		(mixed
 			(natural_number)
-			(natural_number))))
+			(fraction
+				(natural_number)
+				(natural_number)))))
 
 ====
 precedence over fraction

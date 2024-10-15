@@ -30,10 +30,6 @@
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "range"
-                            },
-                            {
-                              "type": "SYMBOL",
                               "name": "exact_value"
                             },
                             {
@@ -45,19 +41,6 @@
                               "name": "natural_number"
                             }
                           ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "TEST_RANGE\n"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "range"
                         }
                       ]
                     },
@@ -217,71 +200,6 @@
       "type": "PATTERN",
       "value": ".*[\\n]"
     },
-    "number_or_range": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "exact_value"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "range"
-        }
-      ]
-    },
-    "range": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "lower",
-          "content": {
-            "type": "SYMBOL",
-            "name": "exact_value"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_hwhitespace"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "-"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_hwhitespace"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "upper",
-          "content": {
-            "type": "SYMBOL",
-            "name": "exact_value"
-          }
-        }
-      ]
-    },
     "exact_value": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -289,45 +207,45 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "FIELD",
-            "name": "sole_integral",
-            "content": {
-              "type": "SYMBOL",
-              "name": "natural_number"
-            }
+            "type": "SYMBOL",
+            "name": "natural_number"
           },
           {
-            "type": "FIELD",
-            "name": "mixed",
-            "content": {
-              "type": "PREC",
-              "value": 2,
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "natural_number"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_hwhitespace"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "fraction"
-                  }
-                ]
+            "type": "SYMBOL",
+            "name": "mixed"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "fraction"
+          }
+        ]
+      }
+    },
+    "mixed": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "natural_number"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_hwhitespace"
+              },
+              {
+                "type": "BLANK"
               }
-            }
+            ]
           },
           {
-            "type": "FIELD",
-            "name": "sole_fraction",
-            "content": {
-              "type": "SYMBOL",
-              "name": "fraction"
-            }
+            "type": "SYMBOL",
+            "name": "fraction"
           }
         ]
       }

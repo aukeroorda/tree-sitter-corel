@@ -16,16 +16,16 @@ module.exports = grammar({
               seq(
                 "TEST_PRECEDENCE\n",
                 choice(
-                  $.range,
+                  // $.range,
                   $.exact_value,
                   $.fraction,
                   $.natural_number,
                 )
               ),
-              seq(
-                "TEST_RANGE\n",
-                $.range,
-              ),
+              // seq(
+              //   "TEST_RANGE\n",
+              //   $.range,
+              // ),
               seq(
                 "TEST_EXACT_VALUE\n",
                 $.exact_value,
@@ -65,28 +65,33 @@ module.exports = grammar({
 
 
     // NumberOrRange is either a single ExactValue, or a range: ExactValue "-" ExactValue
-    number_or_range: ($) => choice(
-      $.exact_value,
-      $.range
-    ),
+    // number_or_range: ($) => choice(
+    //   $.exact_value,
+    //   $.range
+    // ),
 
-    range: ($) => seq(
-      field("lower", $.exact_value),
-      optional($._hwhitespace),
-      // " ",
-      token("-"),
-      optional($._hwhitespace),
-      field("upper", $.exact_value)
-    ),
+    // range: ($) => prec.left(seq(
+    //   field("lower", $.exact_value),
+    //   optional($._hwhitespace),
+    //   token("-"),
+    //   optional($._hwhitespace),
+    //   field("upper", $.exact_value)
+    // )),
 
     // ExactValue is either a single natural number, fraction, or a natural number followed by a fraction
     // - "4"
     // - "1/3"
     // - "2 1/2"
     exact_value: ($) => prec.left(choice(
-      field("sole_integral", $.natural_number),
-      field("mixed", prec(2, seq($.natural_number, $._hwhitespace, $.fraction))), //not sure if this prec is desired, but fixes the issue of parsing 12 1/2 for now, which would otherwise be parsed as sole_integral followed by sole_fraction
-      field("sole_fraction", $.fraction)
+      $.natural_number,
+      $.mixed,
+      $.fraction
+    )),
+
+    mixed: ($) => prec.left(seq(
+      $.natural_number,
+      optional($._hwhitespace),
+      $.fraction
     )),
 
     // Fractions of the form "1/3", "2 / 4"

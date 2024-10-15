@@ -74,10 +74,11 @@ integral range from mixed
 (source_file
 	(range
 		(exact_value 
-          (natural_number)
-          (fraction
-            (natural_number)
-            (natural_number)))
+			(mixed
+	          (natural_number)
+	          (fraction
+	            (natural_number)
+	            (natural_number))))
 		(exact_value 
 			(natural_number))))
 ====

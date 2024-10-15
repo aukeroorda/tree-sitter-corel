@@ -2,41 +2,24 @@
   {
     "type": "exact_value",
     "named": true,
-    "fields": {
-      "mixed": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "fraction",
-            "named": true
-          },
-          {
-            "type": "natural_number",
-            "named": true
-          }
-        ]
-      },
-      "sole_fraction": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "fraction",
-            "named": true
-          }
-        ]
-      },
-      "sole_integral": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "natural_number",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fraction",
+          "named": true
+        },
+        {
+          "type": "mixed",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -66,29 +49,22 @@
     }
   },
   {
-    "type": "range",
+    "type": "mixed",
     "named": true,
-    "fields": {
-      "lower": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "exact_value",
-            "named": true
-          }
-        ]
-      },
-      "upper": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "exact_value",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fraction",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -111,20 +87,12 @@
         {
           "type": "natural_number",
           "named": true
-        },
-        {
-          "type": "range",
-          "named": true
         }
       ]
     }
   },
   {
     "type": "\n",
-    "named": false
-  },
-  {
-    "type": "-",
     "named": false
   },
   {
@@ -145,10 +113,6 @@
   },
   {
     "type": "TEST_PRECEDENCE\n",
-    "named": false
-  },
-  {
-    "type": "TEST_RANGE\n",
     "named": false
   },
   {
