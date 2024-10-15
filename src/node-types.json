@@ -120,6 +120,10 @@
     }
   },
   {
+    "type": "\n",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -128,19 +132,23 @@
     "named": false
   },
   {
-    "type": "TEST_EXACT_VALUE",
+    "type": "TEST_EXACT_VALUE\n",
     "named": false
   },
   {
-    "type": "TEST_FRACTION",
+    "type": "TEST_FRACTION\n",
     "named": false
   },
   {
-    "type": "TEST_NATURAL_NUMBER",
+    "type": "TEST_NATURAL_NUMBER\n",
     "named": false
   },
   {
-    "type": "TEST_RANGE",
+    "type": "TEST_PRECEDENCE\n",
+    "named": false
+  },
+  {
+    "type": "TEST_RANGE\n",
     "named": false
   },
   {

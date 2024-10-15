@@ -1,11 +1,9 @@
 ====
 integral range
 ====
-
 ~TEST_RANGE
 1-3
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -17,11 +15,9 @@ integral range
 ====
 integral range whitespace
 ====
-
 ~TEST_RANGE
 1 - 3
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -34,11 +30,9 @@ integral range whitespace
 ====
 fraction range whitespace
 ====
-
 ~TEST_RANGE
 1/2 - 3
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -53,11 +47,9 @@ fraction range whitespace
 ====
 fraction range from and to whitespace
 ====
-
 ~TEST_RANGE
 1/2 - 3/4
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -74,11 +66,9 @@ fraction range from and to whitespace
 ====
 integral range from mixed
 ====
-
 ~TEST_RANGE
 1 1/2-3
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -93,11 +83,9 @@ integral range from mixed
 ====
 integral range from and to mixed
 ====
-
 ~TEST_RANGE
 1 1/2-3 4/5
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -115,11 +103,9 @@ integral range from and to mixed
 ====
 integral range from and to mixed multidigit
 ====
-
 ~TEST_RANGE
 11 11/22-33 44/55
 ~TEST_RANGE
-
 ---
 
 (source_file
@@ -137,11 +123,9 @@ integral range from and to mixed multidigit
 ====
 integral range from and to mixed multidigit whitespace
 ====
-
 ~TEST_RANGE
 11 11 / 22 - 33 44 / 55
 ~TEST_RANGE
-
 ---
 
 (source_file

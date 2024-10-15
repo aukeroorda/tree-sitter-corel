@@ -1,0 +1,17 @@
+====
+recipe
+====
+
+# Title of the recipe
+
+
+## Ingredients
+
+---
+
+(source_file
+	(exact_value
+		(fraction 
+			(natural_number)
+			(natural_number))))
+
