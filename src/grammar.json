@@ -9,6 +9,10 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SYMBOL",
+              "name": "recipe"
+            },
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -140,7 +144,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_inline"
+                "name": "inline"
               },
               {
                 "type": "STRING",
@@ -155,23 +159,39 @@
         }
       ]
     },
-    "_inline": {
+    "inline": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "emphasis"
+            "name": "quantity"
           },
           {
             "type": "SYMBOL",
-            "name": "_text"
+            "name": "ingredient_def"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "ingredient_ref"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "non_delimiter_text"
           }
         ]
       }
     },
-    "emphasis": {
+    "text": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
+    },
+    "non_delimiter_text": {
+      "type": "PATTERN",
+      "value": "[^\\n\\[\\]\\{\\}\\@\\|<>]+"
+    },
+    "ingredient_def": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -179,22 +199,116 @@
         "members": [
           {
             "type": "STRING",
-            "value": "_"
+            "value": "{"
           },
           {
-            "type": "SYMBOL",
-            "name": "_inline"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ingredient_identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "STRING",
-            "value": "_"
+            "value": "}"
           }
         ]
       }
     },
-    "_text": {
+    "ingredient_ref": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "@"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ingredient_identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "@"
+          }
+        ]
+      }
+    },
+    "quantity": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "exact_value"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_hwhitespace"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "quantity_unit"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "]"
+          }
+        ]
+      }
+    },
+    "quantity_unit": {
       "type": "PATTERN",
-      "value": "[^\\n]"
+      "value": "[^0-9\\]\\ ][^0-9\\]]*"
+    },
+    "ingredient_identifier": {
+      "type": "PATTERN",
+      "value": "[^0-9{}\\[\\]@]+"
     },
     "rest_of_line": {
       "type": "PATTERN",
@@ -211,8 +325,12 @@
             "name": "natural_number"
           },
           {
-            "type": "SYMBOL",
-            "name": "mixed"
+            "type": "PREC",
+            "value": 2,
+            "content": {
+              "type": "SYMBOL",
+              "name": "mixed"
+            }
           },
           {
             "type": "SYMBOL",

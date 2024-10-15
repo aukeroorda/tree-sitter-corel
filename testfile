@@ -1,3 +1,12 @@
-~TEST_PRECEDENCE
-12 1/2
-~
+# hello
+
+
+# this is paragraph two
+with more lines
+
+- [2 cups] {apples}
+- and a _third_ paragraph [2 with a quantity] element?
+
+
+and here a @apples@ reference.
+

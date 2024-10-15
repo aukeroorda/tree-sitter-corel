@@ -7,7 +7,7 @@ module.exports = grammar({
         choice(
           // TODO This is where the natural entry point of the language is, but
           // TODO this is made a 'choice' to be able to debug non-root nodes as well
-          // $.recipe,
+          $.recipe,
 
           // Test cases
           seq(
@@ -51,13 +51,38 @@ module.exports = grammar({
 
     // A paragraph contains inline content and is terminated by a blankline
     // (two newlines in a row).
-    paragraph: ($) => seq(repeat1(seq($._inline, "\n")), "\n"),
+    paragraph: ($) => seq(repeat1(seq($.inline, "\n")), "\n"),
 
-    // The markup parser could separate block and inline parsing into separate steps,
-    // but we'll do everything in one parser.
-    _inline: ($) => repeat1(choice($.emphasis, $._text)),
-    emphasis: ($) => prec.left(seq("_", $._inline, "_")),
-    _text: (_) => /[^\n]/,
+    inline: ($) => repeat1(choice($.quantity, $.ingredient_def, $.ingredient_ref, $.non_delimiter_text)),
+    text: (_) => /[^\n]+/,
+    non_delimiter_text: (_) => /[^\n\[\]\{\}\@\|<>]+/,
+
+    ingredient_def: ($) => prec.left(
+      seq(
+        "{",
+        optional($.ingredient_identifier),
+        "}"
+      )
+    ),
+    ingredient_ref: ($) => prec.left(
+      seq(
+        "@",
+        optional($.ingredient_identifier),
+        "@"
+      )
+    ),
+    quantity: ($) => prec.left(
+      seq(
+        "[",
+        optional($.exact_value),
+        optional($._hwhitespace),
+        optional($.quantity_unit),
+        "]"
+      )
+    ),
+
+    quantity_unit: ($) => /[^0-9\]\ ][^0-9\]]*/,
+    ingredient_identifier: ($) => /[^0-9{}\[\]@]+/,
 
 
     // RestOfLine matches any text up until the newline
@@ -82,11 +107,14 @@ module.exports = grammar({
     // - "4"
     // - "1/3"
     // - "2 1/2"
-    exact_value: ($) => prec.left(choice(
-      $.natural_number,
-      $.mixed,
-      $.fraction
-    )),
+    exact_value: ($) =>
+      prec.left(
+        choice(
+          $.natural_number,
+          prec(2, $.mixed),
+          $.fraction
+        )
+      ),
 
     mixed: ($) => prec.left(seq(
       $.natural_number,

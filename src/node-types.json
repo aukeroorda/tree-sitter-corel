@@ -49,6 +49,63 @@
     }
   },
   {
+    "type": "ingredient_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ingredient_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ingredient_ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ingredient_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ingredient_def",
+          "named": true
+        },
+        {
+          "type": "ingredient_ref",
+          "named": true
+        },
+        {
+          "type": "non_delimiter_text",
+          "named": true
+        },
+        {
+          "type": "quantity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "mixed",
     "named": true,
     "fields": {},
@@ -62,6 +119,55 @@
         },
         {
           "type": "natural_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quantity",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exact_value",
+          "named": true
+        },
+        {
+          "type": "quantity_unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "recipe",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "paragraph",
           "named": true
         }
       ]
@@ -87,6 +193,10 @@
         {
           "type": "natural_number",
           "named": true
+        },
+        {
+          "type": "recipe",
+          "named": true
         }
       ]
     }
@@ -97,6 +207,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
@@ -116,7 +230,35 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "ingredient_identifier",
+    "named": true
+  },
+  {
     "type": "natural_number",
     "named": true
+  },
+  {
+    "type": "non_delimiter_text",
+    "named": true
+  },
+  {
+    "type": "quantity_unit",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]
