@@ -1,7 +1,19 @@
 # recipe
 
-- 2 {apples}
+- ingredient
+- {apples}
+- <200 cC>
+- <2 minutes>
+- <200 minutes>
+- |5 minutes|
+- |50 minutes|
+- |500 minutes|
+
+- pretext {apples} after text
+- [2] {apples}
+- [2 cups] sliced {apples}
+
 
 # does tree sitter do anything
-with a [2 cups] quantity
+Slice the @apples@.
 

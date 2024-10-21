@@ -53,9 +53,10 @@ module.exports = grammar({
     // (two newlines in a row).
     paragraph: ($) => seq(repeat1(seq($.inline, "\n")), "\n"),
 
-    inline: ($) => repeat1(choice($.quantity, $.ingredient_def, $.ingredient_ref, $.non_delimiter_text)),
+    inline: ($) => repeat1(choice($.quantity, $.ingredient_def, $.ingredient_ref, $.time, $.temperature, $.non_delimiter_text)),
     text: (_) => /[^\n]+/,
     non_delimiter_text: (_) => /[^\n\[\]\{\}\@\|<>]+/,
+    non_delimiter_text_no_digits: (_) => /[^0-9\n\[\]\{\}\@\|<>]+/,
 
     ingredient_def: ($) => prec.left(
       seq(
@@ -80,8 +81,27 @@ module.exports = grammar({
         "]"
       )
     ),
+    temperature: ($) => prec.left(
+      seq(
+        "<",
+        optional($.exact_value),
+        optional($._hwhitespace),
+        optional($.quantity_unit),
+        ">"
+      )
+    ),
+    time: ($) => prec.left(
+      seq(
+        "|",
+        optional($.exact_value),
+        optional($._hwhitespace),
+        optional($.quantity_unit),
+        "|"
+      )
+    ),
 
-    quantity_unit: ($) => /[^0-9\]\ ][^0-9\]]*/,
+    // quantity_unit: ($) => /[^0-9\]\ ][^0-9\]]*/,
+    quantity_unit: ($) => $.non_delimiter_text_no_digits,
     ingredient_identifier: ($) => /[^0-9{}\[\]@]+/,
 
 
@@ -131,7 +151,7 @@ module.exports = grammar({
       field('denominator', $.natural_number)),
 
     // Natural numbers, so no decimals or negatives
-    natural_number: ($) => /[1-9](\d)?/,
+    natural_number: ($) => /[1-9](\d)*/,
 
 
     // horizontal whitespace

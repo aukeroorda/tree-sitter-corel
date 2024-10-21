@@ -178,6 +178,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "time"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "temperature"
+          },
+          {
+            "type": "SYMBOL",
             "name": "non_delimiter_text"
           }
         ]
@@ -190,6 +198,10 @@
     "non_delimiter_text": {
       "type": "PATTERN",
       "value": "[^\\n\\[\\]\\{\\}\\@\\|<>]+"
+    },
+    "non_delimiter_text_no_digits": {
+      "type": "PATTERN",
+      "value": "[^0-9\\n\\[\\]\\{\\}\\@\\|<>]+"
     },
     "ingredient_def": {
       "type": "PREC_LEFT",
@@ -302,9 +314,115 @@
         ]
       }
     },
+    "temperature": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "<"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "exact_value"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_hwhitespace"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "quantity_unit"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ">"
+          }
+        ]
+      }
+    },
+    "time": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "|"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "exact_value"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_hwhitespace"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "quantity_unit"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "|"
+          }
+        ]
+      }
+    },
     "quantity_unit": {
-      "type": "PATTERN",
-      "value": "[^0-9\\]\\ ][^0-9\\]]*"
+      "type": "SYMBOL",
+      "name": "non_delimiter_text_no_digits"
     },
     "ingredient_identifier": {
       "type": "PATTERN",
@@ -419,7 +537,7 @@
     },
     "natural_number": {
       "type": "PATTERN",
-      "value": "[1-9](\\d)?"
+      "value": "[1-9](\\d)*"
     },
     "_hwhitespace": {
       "type": "PATTERN",
