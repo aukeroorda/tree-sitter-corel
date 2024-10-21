@@ -2,9 +2,14 @@
 
 - ingredient
 - {apples}
-- <200 cC>
-- <2 minutes>
-- <200 minutes>
+- <2 C>
+- <2*C>
+- <2°C>
+- <2°Celsius>
+- <2 °Celsius>
+- <2 ° Celsius>
+- <20 C>
+- <200 C>
 - |5 minutes|
 - |50 minutes|
 - |500 minutes|
@@ -12,6 +17,7 @@
 - pretext {apples} after text
 - [2] {apples}
 - [2 cups] sliced {apples}
+- [2cups] sliced {apples}
 
 
 # does tree sitter do anything
